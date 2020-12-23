@@ -1,2 +1,2 @@
-# Instagraf
+# Galerija
 Projekt pri predmetu Računalništvo
