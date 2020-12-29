@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Page Title</title>
+<title>Hello {{name}}</title>
 </head>
 <body>
 
-<h1>Galery</h1>
-<p>Moje ime je Tijan :)</p>
+<h1>Galery headline</h1>
+<p>Moje ime je {{name}} :)</p>
 
 </body>
 </html>
