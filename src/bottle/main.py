@@ -22,8 +22,6 @@ def check_username(username):
     return True
 
 
-
-
 @get('/')
 def main_page():
     if request.get_cookie('account'):
