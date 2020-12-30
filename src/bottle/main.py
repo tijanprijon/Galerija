@@ -1,17 +1,61 @@
 import bottle   # TODO pip install not working, currently entire bottle.py file copied to rep
+import os
 from bottle import get, post, request
 
 bottle.TEMPLATE_PATH.insert(0,'C:\\Users\\Uporabnik\\Tijan\\projekt_rac\\Galerija\\src\\bottle\\view')    # TODO add to gitignore config file or change to relative path
 
-@bottle.get('/')
+
+def check_login(username, password):
+    if username == "Tijan" and password == "Prijon":
+        return True
+    usernames = ["Tijan", "Miha"]   # test
+    passwords = ["Prijon", "Tijan", "Miha", "legenda123"]
+    if username in usernames and password in passwords:
+        return True
+    else:
+        return False
+
+def check_username(username):
+    if username == "Tijan":
+        return False
+    return True
+
+
+
+
+@get('/')
 def hello():
     if request.get_cookie('account'):
         user = request.get_cookie('account')
         return bottle.template("test12.tpl", name = user)
     bottle.redirect('/login')
 
+
+
+
+
+@get('/upload')
+def upload_pictures():
+    if request.get_cookie('account'):
+        return bottle.template("upload.tpl", name = request.get_cookie('account'))
+    bottle.redirect('/login')
+
+@post('/upload')
+def upload_pictures():
+    upload = request.files.get('upload')
+    name, ext = os.path.splitext(upload.filename)
+    if ext not in ('.png','.jpg','.jpeg'):
+        return 'File extension not allowed.'
+
+    save_path =  f"C:\\Users\\Uporabnik\\Tijan\\projekt_rac\\Galerija\\src\\model\\pictures{name}{ext}"
+    with open(save_path, "wb") as image_file:
+        image_file.write(upload.file.read())
+    return 'Successful:)'
+
 @get('/login')
 def login():
+    if request.get_cookie('account'):
+        return "You are already logged in:o"
     return '''
         <b>Already have an account? Login</b> :
         <form action="/login" method="post">
@@ -29,20 +73,6 @@ def login():
         </form>
     '''
 
-def check_login(username, password):
-    if username == "Tijan" and password == "Prijon":
-        return True
-    usernames = ["Tijan", "Miha"]   # test
-    passwords = ["Prijon", "Tijan", "Miha", "legenda123"]
-    if username in usernames and password in passwords:
-        return True
-    else:
-        return False
-
-def check_username(username):
-    if username == "Tijan":
-        return False
-    return True
 
 @post('/login')
 def do_login():
@@ -55,19 +85,22 @@ def do_login():
             bottle.response.set_cookie("account", username)
             print("Your login information was correct.")
             bottle.redirect('/')
+        else:
+            return("Your username or password is incorrect.")
         return "<p>HA HA HA<p>" #login unsuccessful
 
     #sign in
-    elif request.forms.get("new_username") and request.forms.get("new_password"):
+    elif request.forms.get("new_username") and request.forms.get("new_password"):   # not None
         new_username = request.forms.get("new_username")
         password = request.forms.get("new_password")
-        if check_username(new_username):  # not None
+        if check_username(new_username):
             bottle.response.set_cookie("account", new_username)
-            print("Sign in successful")
             bottle.redirect('/')
-            
+            print("Sign in successful")
+        else:
+            return f"Username '{new_username}' already exists."
     else:
-        return "<p>HA HA HA<p>" #login unsuccessful
+        return "<p>HA HA HA. Not working<p>" #login unsuccessful
 
 
 bottle.run(host='localhost', port=8080, debug=True, reloader = True)
