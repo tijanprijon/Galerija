@@ -1,26 +1,39 @@
 import bottle   # TODO pip install not working, currently entire bottle.py file copied to rep
 import os
+import json
 from bottle import get, post, request
 
 
 bottle.TEMPLATE_PATH.insert(0,'C:\\Users\\Uporabnik\\Tijan\\projekt_rac\\Galerija\\src\\bottle\\view')    # TODO add to gitignore config file or change to relative path
+path_to_json = 'C:\\Users\\Uporabnik\\Tijan\\projekt_rac\\Galerija\\src\\model\\'
 
-# TODO check login/usernames
+
 def check_login(username, password):
-    if username == "Tijan" and password == "Prijon":
-        return True
-    usernames = ["Tijan", "Miha"]   # test
-    passwords = ["Prijon", "Tijan", "Miha", "legenda123"]
-    if username in usernames and password in passwords:
-        return True
-    else:
-        return False
+    """Return True if login infos are valid"""
+    with open(f"{path_to_json}data.txt", "r") as json_file:
+        data = json.load(json_file)
+    for user in data["users"]:
+        if user["Username"] == username and user["Password"] == password:
+            return True
+    return False
 
-def check_username(username):
-    if username == "Tijan":
-        return False
+def username_available(name):
+    """return True if available, otherwise False"""
+    with open(f"{path_to_json}data.txt", "r") as json_file:
+        data = json.load(json_file)
+    for user in data["users"]:
+        if user["Username"] == name:
+            return False
     return True
 
+
+def add_account(username, password):
+    with open(f"{path_to_json}data.txt", "r") as json_file:
+        data = json.load(json_file)
+    data_to_add = {"Username": username, "Password" : password}
+    data["users"].append(data_to_add)
+    with open(f"{path_to_json}data.txt", "w") as outfile:
+        json.dump(data, outfile, indent=4)
 
 @get('/')
 def main_page():
@@ -98,8 +111,9 @@ def do_login():
     elif request.forms.get("new_username") and request.forms.get("new_password"):   # not None
         new_username = request.forms.get("new_username")
         password = request.forms.get("new_password")
-        if check_username(new_username):
+        if username_available(new_username):
             bottle.response.set_cookie("account", new_username)
+            add_account(new_username, password)
             bottle.redirect('/')
             print("Sign in successful")
         else:

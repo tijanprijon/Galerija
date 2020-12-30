@@ -1,14 +1,15 @@
+import json
 from datetime import datetime
 from PIL import Image, ImageFilter
 
 path = "C:\\Users\\Uporabnik\\Tijan\\projekt_rac\\Galerija\\src\\model\\pictures"   # TODO relative path
 class Images:
 
-    def __init__(self, image_name, oldness):
+    def __init__(self, image_name, oldness, likes = 0, dislikes = 0, comments = list()):
         self.image_name = image_name
         self.oldness = oldness
-        self.comment = list()
-        self.likes = 0
+        self.comments = comments
+        self.likes = likes
         self.dislikes = 0
 
     def like_picture(self):
