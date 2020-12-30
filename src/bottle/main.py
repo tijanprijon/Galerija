@@ -2,9 +2,10 @@ import bottle   # TODO pip install not working, currently entire bottle.py file 
 import os
 from bottle import get, post, request
 
+
 bottle.TEMPLATE_PATH.insert(0,'C:\\Users\\Uporabnik\\Tijan\\projekt_rac\\Galerija\\src\\bottle\\view')    # TODO add to gitignore config file or change to relative path
 
-
+# TODO check login/usernames
 def check_login(username, password):
     if username == "Tijan" and password == "Prijon":
         return True
@@ -24,15 +25,21 @@ def check_username(username):
 
 
 @get('/')
-def hello():
+def main_page():
     if request.get_cookie('account'):
         user = request.get_cookie('account')
-        return bottle.template("test12.tpl", name = user)
-    bottle.redirect('/login')
+    else:
+        user = "Guest"
+    return bottle.template("test12.tpl", name = user)
 
-
-
-
+@post('/')
+def main_page_action():
+    if request.forms.get("login"):
+        bottle.redirect('/login')
+    if request.forms.get("galary"):
+        bottle.redirect('/galery')
+    if request.forms.get("upload"):
+        bottle.redirect('/upload')
 
 @get('/upload')
 def upload_pictures():
@@ -102,5 +109,10 @@ def do_login():
     else:
         return "<p>HA HA HA. Not working<p>" #login unsuccessful
 
+
+@get('/galery')
+def galery():
+    if request.get_cookie('account'):
+        return bottle.template("view_pictures.tpl")
 
 bottle.run(host='localhost', port=8080, debug=True, reloader = True)

@@ -7,8 +7,14 @@
 
 <h1>Galery</h1>
 <p>Hello {{name}} :) How are you? AAAAAA</p>
-<button type="/" form="form1" value="Submit">Login / create account</button>
-<button type="/" form="form2" value="Submit">View my galary</button>
-<button type="/" form="form3" value="Submit">Upload new photos</button>
+<form action="/" method="post">
+    <input name = login value="Login / create account" type="submit" />
+</form>
+<form action="/" method="post">
+    <input name = galary value="View galary" type="submit" />
+</form>
+<form action="/" method="post">
+    <input name = upload value="Upload pictures" type="submit" />
+</form>
 </body>
 </html>
