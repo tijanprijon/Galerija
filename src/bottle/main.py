@@ -7,7 +7,7 @@ from datetime import datetime
 
 bottle.TEMPLATE_PATH.insert(0,'C:\\Users\\Uporabnik\\Tijan\\projekt_rac\\Galerija\\src\\bottle\\view')    # TODO add to gitignore config file or change to relative path
 path_to_json = 'C:\\Users\\Uporabnik\\Tijan\\projekt_rac\\Galerija\\src\\model\\'
-path_to_pictures = "C:\\Users\\Uporabnik\\Tijan\\projekt_rac\\Galerija\\src\\model\\pictures\\"
+path_to_pictures = "C:\\Users\\Uporabnik\\Tijan\\projekt_rac\\Galerija\\static\\"
 
 def check_login(username, password):
     """Return True if login infos are valid"""
@@ -29,7 +29,7 @@ def username_available(name):
 
 def save_picture(user, upload): #TODO title
     name, ext = os.path.splitext(upload.filename)
-    save_path =  f"C:\\Users\\Uporabnik\\Tijan\\projekt_rac\\Galerija\\src\\model\\pictures\\{name}_{user}{ext}"
+    save_path =  f"C:\\Users\\Uporabnik\\Tijan\\projekt_rac\\Galerija\\static\\images\\{name}_{user}{ext}"
     if ext not in ('.png','.jpg','.jpeg'):
         return 'File extension not allowed.'
     with open(save_path, "wb") as image_file:
@@ -39,10 +39,10 @@ def save_picture(user, upload): #TODO title
         try:
             data[f"{name}_{user}"]
             print("Picture already exists")
-            return None 
+            return None
         except Exception:
             pass
-    data[f"{name}_{user}"] = {"owner": user, "likes" : 0, "dislikes" : 0, "comments" : [], "date": datetime.now().__str__()}
+    data[f"{name}_{user}"] = {"owner": user, "likes" : 0, "image_name": f"{name}_{user}", "dislikes" : 0, "comments" : [], "date": datetime.now().__str__(), "ext": ext}
     with open(f"{path_to_json}data.txt", "w") as outfile:
         json.dump(data, outfile, indent=4)
 
@@ -56,6 +56,14 @@ def get_list_of_images(user):
         if data[element]["owner"] == user:
             list_of_images.append(data[element])
     return list_of_images
+
+
+app = bottle.default_app()
+bottle.BaseTemplate.defaults['get_url'] = app.get_url
+
+@bottle.route('/static/<filename:path>', name='static')
+def serve_static(filename):
+    return bottle.static_file(filename, root='static')
 
 def add_account(username, password):
     with open(f"{path_to_json}data.txt", "r") as json_file:
@@ -168,6 +176,7 @@ def galery():
         images = get_list_of_images(user)
         return bottle.template("view_pictures.tpl", images = images, path = path_to_pictures)
     return "://"
+
 # @post('/galery')
 # def galery():
 #     if request.get_cookie('account'):

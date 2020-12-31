@@ -6,9 +6,9 @@
 <body>
 
 <h1>Galery</h1>
-<p>Hello :) How are you? AAAAAA</p>
-% for image in images:
-<p>{{image}}</p>
+<p>Hello :) How are you?</p>
+
+<img src="{{ get_url('static', filename='images/image.jpg') }}" />
 %end
 
 </form>

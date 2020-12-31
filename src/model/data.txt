@@ -28,9 +28,10 @@
     "WIN_20200810_18_26_09_Pro_Tijan": {
         "owner": "Tijan",
         "likes": 0,
+        "image_name": "WIN_20200810_18_26_09_Pro_Tijan",
         "dislikes": 0,
         "comments": [],
-        "image_name": "WIN_20200810_18_26_09_Pro",
-        "date": "2020-12-31 10:58:59.870061"
+        "date": "2020-12-31 16:00:23.985517",
+        "ext": ".jpg"
     }
 }
