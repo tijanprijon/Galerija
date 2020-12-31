@@ -5,8 +5,8 @@
 </head>
 <body>
 
-<h1>Galery</h1>
-<p>Hello {{name}} :) How are you? AAAAAA</p>
+<h1>MAIN PAGE</h1>
+<p>Hello {{name}} :) How are you?</p>
 <form action="/" method="post">
     <input name = login value="Login / create account" type="submit" />
 </form>

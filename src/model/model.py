@@ -5,13 +5,17 @@ from PIL import Image, ImageFilter
 path = "C:\\Users\\Uporabnik\\Tijan\\projekt_rac\\Galerija\\src\\model\\pictures"   # TODO relative path
 class Images:
 
-    def __init__(self, image_name, oldness, likes = 0, dislikes = 0, comments = list()):
+    def __init__(self, image_name, oldness, likes = 0, dislikes = 0, comments = list(), title = None):
         self.image_name = image_name
         self.oldness = oldness
         self.comments = comments
         self.likes = likes
-        self.dislikes = 0
-
+        self.dislikes = dislikes
+        if title:
+            self.title = title
+        else:
+            self.title = image_name
+    
     def like_picture(self):
         self.likes += 1
     
@@ -19,7 +23,7 @@ class Images:
         self.dislikes += 1
 
     def comment_picture(self, text):
-        self.comment.append(text)
+        self.comments.append(text)
 
     def add_colorles_filter(self):
         original_image = Image.open(f"{path}\\{self.image_name}.png")

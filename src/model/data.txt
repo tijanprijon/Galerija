@@ -24,5 +24,13 @@
             "Username": "mark",
             "Password": "markec"
         }
-    ]
+    ],
+    "WIN_20200810_18_26_09_Pro_Tijan": {
+        "owner": "Tijan",
+        "likes": 0,
+        "dislikes": 0,
+        "comments": [],
+        "image_name": "WIN_20200810_18_26_09_Pro",
+        "date": "2020-12-31 10:58:59.870061"
+    }
 }
