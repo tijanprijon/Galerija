@@ -5,7 +5,7 @@
 </head>
 <body>
 
-<h1>Galery</h1>
+<h1>Upload photos!</h1>
 <p>Hello {{name}} :) How are you? Please select photos, you want to add to album:</p>
 
 <form action="/upload" method="post" enctype="multipart/form-data">

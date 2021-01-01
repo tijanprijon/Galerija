@@ -7,7 +7,7 @@ from datetime import datetime
 
 bottle.TEMPLATE_PATH.insert(0,'C:\\Users\\Uporabnik\\Tijan\\projekt_rac\\Galerija\\src\\bottle\\view')    # TODO add to gitignore config file or change to relative path
 path_to_json = 'C:\\Users\\Uporabnik\\Tijan\\projekt_rac\\Galerija\\src\\model\\'
-path_to_pictures = "C:\\Users\\Uporabnik\\Tijan\\projekt_rac\\Galerija\\static\\"
+#path_to_pictures = "C:\\Users\\Uporabnik\\Tijan\\projekt_rac\\Galerija\\static\\"
 
 def check_login(username, password):
     """Return True if login infos are valid"""
@@ -73,14 +73,26 @@ def add_account(username, password):
     with open(f"{path_to_json}data.txt", "w") as outfile:
         json.dump(data, outfile, indent=4)
 
-def like_picture():
-    pass
+def like_picture(image_name):
+    with open(f"{path_to_json}data.txt", "r") as json_file:
+        data = json.load(json_file)
+    data[image_name]["likes"] += 1
+    with open(f"{path_to_json}data.txt", "w") as outfile:
+        json.dump(data, outfile, indent=4)
 
-def dislike_picture():
-    pass
+def dislike_picture(image_name):
+    with open(f"{path_to_json}data.txt", "r") as json_file:
+        data = json.load(json_file)
+    data[image_name]["dislikes"] += 1
+    with open(f"{path_to_json}data.txt", "w") as outfile:
+        json.dump(data, outfile, indent=4)
 
-def add_comment():
-    pass
+def add_comment(image_name, comment):
+    with open(f"{path_to_json}data.txt", "r") as json_file:
+        data = json.load(json_file)
+    data[image_name]["comments"].append(comment)
+    with open(f"{path_to_json}data.txt", "w") as outfile:
+        json.dump(data, outfile, indent=4)
 
 def upload_filtered_picture():
     pass
@@ -100,8 +112,8 @@ def main_page():
 def main_page_action():
     if request.forms.get("login"):
         bottle.redirect('/login')
-    if request.forms.get("galary"):
-        bottle.redirect('/galery')
+    if request.forms.get("gallery"):
+        bottle.redirect('/gallery')
     if request.forms.get("upload"):
         bottle.redirect('/upload')
 
@@ -169,13 +181,32 @@ def do_login():
         return "<p>HA HA HA. Not working<p>" #login unsuccessful
 
 
-@get('/galery')
-def galery():
+@get('/gallery')
+def gallery():
     if request.get_cookie('account'):
         user = request.get_cookie('account')
         images = get_list_of_images(user)
-        return bottle.template("view_pictures.tpl", images = images, path = path_to_pictures)
-    return "://"
+        return bottle.template("view_pictures.tpl", images = images)
+    return bottle.redirect("/login")
+
+@post('/gallery')
+def gallery_action(): # TODO call functions
+    if not request.get_cookie('account'):
+        bottle.redirect('/')
+    user = request.get_cookie('account')
+    for image in get_list_of_images(user):
+        like_name = f"like_{image['image_name']}"
+        dislike_name = f"dislike_{image['image_name']}"
+        comment_name = f"comment_{image['image_name']}"
+        if request.forms.get(like_name):
+            like_picture(f"{image['image_name']}")
+            bottle.redirect('/gallery')
+        if request.forms.get(dislike_name):
+            dislike_picture(f"{image['image_name']}")
+            bottle.redirect('/gallery')
+        if request.forms.get(comment_name):
+            add_comment(f"{image['image_name']}", request.forms.get(comment_name))
+            bottle.redirect('/gallery')
 
 # @post('/galery')
 # def galery():

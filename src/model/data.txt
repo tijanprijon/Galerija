@@ -23,6 +23,10 @@
         {
             "Username": "mark",
             "Password": "markec"
+        },
+        {
+            "Username": "BLAZ",
+            "Password": "blazko"
         }
     ],
     "WIN_20200810_18_26_09_Pro_Tijan": {
@@ -30,8 +34,48 @@
         "likes": 0,
         "image_name": "WIN_20200810_18_26_09_Pro_Tijan",
         "dislikes": 0,
-        "comments": [],
+        "comments": [
+            "Ful lepa slika!!",
+            "Semi"
+        ],
         "date": "2020-12-31 16:00:23.985517",
+        "ext": ".jpg"
+    },
+    "10dayavg_diff_freq_Tijan": {
+        "owner": "Tijan",
+        "likes": 0,
+        "image_name": "10dayavg_diff_freq_Tijan",
+        "dislikes": 0,
+        "comments": [
+            "Ful lepa slika!!",
+            "Semi"
+        ],
+        "date": "2020-12-31 16:06:11.418803",
+        "ext": ".png"
+    },
+    "freq5_diffaverage_BLAZ": {
+        "owner": "BLAZ",
+        "likes": 34,
+        "image_name": "freq5_diffaverage_BLAZ",
+        "dislikes": 8,
+        "comments": [
+            "vdsa",
+            "asd",
+            "Zivjo svet",
+            "Kaj ti="
+        ],
+        "date": "2020-12-31 17:59:15.599589",
+        "ext": ".png"
+    },
+    "WIN_20200810_18_26_09_Pro_BLAZ": {
+        "owner": "BLAZ",
+        "likes": 4,
+        "image_name": "WIN_20200810_18_26_09_Pro_BLAZ",
+        "dislikes": 2,
+        "comments": [
+            "Zivjo:)"
+        ],
+        "date": "2021-01-01 15:37:27.371738",
         "ext": ".jpg"
     }
 }

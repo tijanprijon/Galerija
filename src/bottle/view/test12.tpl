@@ -11,7 +11,7 @@
     <input name = login value="Login / create account" type="submit" />
 </form>
 <form action="/" method="post">
-    <input name = galary value="View galary" type="submit" />
+    <input name = gallery value="View gallery" type="submit" />
 </form>
 <form action="/" method="post">
     <input name = upload value="Upload pictures" type="submit" />
