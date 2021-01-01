@@ -27,55 +27,46 @@
         {
             "Username": "BLAZ",
             "Password": "blazko"
+        },
+        {
+            "Username": "zaba",
+            "Password": "baba"
         }
     ],
-    "WIN_20200810_18_26_09_Pro_Tijan": {
-        "owner": "Tijan",
-        "likes": 0,
-        "image_name": "WIN_20200810_18_26_09_Pro_Tijan",
-        "dislikes": 0,
-        "comments": [
-            "Ful lepa slika!!",
-            "Semi"
-        ],
-        "date": "2020-12-31 16:00:23.985517",
+    "WIN_20200810_18_26_09_Pro_zaba": {
+        "owner": "zaba",
+        "likes": 7,
+        "image_name": "WIN_20200810_18_26_09_Pro_zaba",
+        "dislikes": 1,
+        "comments": [],
+        "date": "2021-01-01 19:57:20.866535",
         "ext": ".jpg"
     },
-    "10dayavg_diff_freq_Tijan": {
-        "owner": "Tijan",
+    "WIN_20200810_18_26_09_Pro_zaba_BLUR": {
+        "owner": "zaba",
         "likes": 0,
-        "image_name": "10dayavg_diff_freq_Tijan",
+        "image_name": "WIN_20200810_18_26_09_Pro_zaba_BLUR",
         "dislikes": 0,
-        "comments": [
-            "Ful lepa slika!!",
-            "Semi"
-        ],
-        "date": "2020-12-31 16:06:11.418803",
-        "ext": ".png"
+        "comments": [],
+        "date": "2021-01-01 19:57:25.461856",
+        "ext": ".jpg"
     },
-    "freq5_diffaverage_BLAZ": {
-        "owner": "BLAZ",
-        "likes": 34,
-        "image_name": "freq5_diffaverage_BLAZ",
-        "dislikes": 8,
-        "comments": [
-            "vdsa",
-            "asd",
-            "Zivjo svet",
-            "Kaj ti="
-        ],
-        "date": "2020-12-31 17:59:15.599589",
-        "ext": ".png"
-    },
-    "WIN_20200810_18_26_09_Pro_BLAZ": {
-        "owner": "BLAZ",
-        "likes": 4,
-        "image_name": "WIN_20200810_18_26_09_Pro_BLAZ",
+    "WIN_20200810_18_26_09_Pro_zaba_EMBOSS": {
+        "owner": "zaba",
+        "likes": 0,
+        "image_name": "WIN_20200810_18_26_09_Pro_zaba_EMBOSS",
         "dislikes": 2,
-        "comments": [
-            "Zivjo:)"
-        ],
-        "date": "2021-01-01 15:37:27.371738",
+        "comments": [],
+        "date": "2021-01-01 19:57:31.074251",
+        "ext": ".jpg"
+    },
+    "WIN_20200810_18_26_09_Pro_zaba_EDGE_ENHANCE_MORE": {
+        "owner": "zaba",
+        "likes": 0,
+        "image_name": "WIN_20200810_18_26_09_Pro_zaba_EDGE_ENHANCE_MORE",
+        "dislikes": 0,
+        "comments": [],
+        "date": "2021-01-01 19:57:39.164042",
         "ext": ".jpg"
     }
 }

@@ -6,9 +6,15 @@
 <body>
 
 <h1>Gallery</h1>
-<p>Hello, welcome to your gallery :)?</p>
-<form action="/gallery" method="post">
-    <input name = upload_more value="Upload more pictures" type="submit" />
+<p>Hello, welcome to your gallery :)</p>
+
+<form action="/" method="post">
+    <input name = main_page value="Go to main page" type="submit" />
+</form>
+<br>
+<form action="/gallery" method="post" enctype="multipart/form-data">
+  Select a file to upload more pictures: <input type="file" name="upload" />
+  <input type="submit" value="Start upload" />
 </form>
 
 % for image in images:
@@ -17,6 +23,7 @@
 % like_name = f'like_{image["image_name"]}'
 % dislike_name = f'dislike_{image["image_name"]}'
 % comment_name = f'comment_{image["image_name"]}'
+% filter_name = f'filter_{image["image_name"]}'
 % if likes == "1 likes":
 % likes = "1 like"
 %end
@@ -46,9 +53,10 @@
 </form>
 
 <br>Filter this image &amp add it to your gallery:
-<form action="/gallery">
+
+<form action="/gallery" method="post">
   <label for="filter">Choose a filter:</label>
-  <select id="filter" name="filter">
+  <select id= {{filter_name}} name= {{filter_name}}>
     <option value="BLUR">Blur</option>
     <option value="EMBOSS">Emboss</option>
     <option value="EDGE_ENHANCE">Edge enhancement</option>
@@ -57,6 +65,7 @@
     <option value="GRAYSCALE">Grayscale</option>
   </select>
   <input type="submit">
+
 </form>
 
 </ul>
