@@ -1,72 +1,39 @@
 {
     "users": [
         {
-            "Username": "Tijan",
-            "Password": "tijan"
+            "Username": "das",
+            "Password": "sf"
         },
         {
-            "Username": "Luka",
-            "Password": "lukec"
-        },
-        {
-            "Username": "Maj",
-            "Password": "majko"
-        },
-        {
-            "Username": "Enej",
-            "Password": "enejko"
-        },
-        {
-            "Username": "Zan",
-            "Password": "zanko"
-        },
-        {
-            "Username": "mark",
-            "Password": "markec"
-        },
-        {
-            "Username": "BLAZ",
-            "Password": "blazko"
-        },
-        {
-            "Username": "zaba",
-            "Password": "baba"
+            "Username": "dffsa",
+            "Password": "fsas"
         }
     ],
-    "WIN_20200810_18_26_09_Pro_zaba": {
-        "owner": "zaba",
-        "likes": 7,
-        "image_name": "WIN_20200810_18_26_09_Pro_zaba",
+    "WIN_20200810_18_26_09_Pro_dffsa": {
+        "owner": "dffsa",
+        "likes": 2,
+        "image_name": "WIN_20200810_18_26_09_Pro_dffsa",
         "dislikes": 1,
         "comments": [],
-        "date": "2021-01-01 19:57:20.866535",
+        "date": "2021-01-01 20:31:28.341261",
         "ext": ".jpg"
     },
-    "WIN_20200810_18_26_09_Pro_zaba_BLUR": {
-        "owner": "zaba",
+    "Screenshot-22_dffsa": {
+        "owner": "dffsa",
         "likes": 0,
-        "image_name": "WIN_20200810_18_26_09_Pro_zaba_BLUR",
+        "image_name": "Screenshot-22_dffsa",
         "dislikes": 0,
         "comments": [],
-        "date": "2021-01-01 19:57:25.461856",
-        "ext": ".jpg"
+        "date": "2021-01-01 20:36:48.978798",
+        "ext": ".png"
     },
-    "WIN_20200810_18_26_09_Pro_zaba_EMBOSS": {
-        "owner": "zaba",
+    "Screenshot-22_dffsa_BLUR": {
+        "owner": "dffsa",
         "likes": 0,
-        "image_name": "WIN_20200810_18_26_09_Pro_zaba_EMBOSS",
-        "dislikes": 2,
-        "comments": [],
-        "date": "2021-01-01 19:57:31.074251",
-        "ext": ".jpg"
-    },
-    "WIN_20200810_18_26_09_Pro_zaba_EDGE_ENHANCE_MORE": {
-        "owner": "zaba",
-        "likes": 0,
-        "image_name": "WIN_20200810_18_26_09_Pro_zaba_EDGE_ENHANCE_MORE",
+        "image_name": "Screenshot-22_dffsa_BLUR",
         "dislikes": 0,
         "comments": [],
-        "date": "2021-01-01 19:57:39.164042",
-        "ext": ".jpg"
+        "date": "2021-01-01 20:37:53.240207",
+        "ext": ".png"
     }
 }

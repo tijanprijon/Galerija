@@ -4,10 +4,11 @@ import json
 from bottle import get, post, request
 from datetime import datetime
 from PIL import Image, ImageFilter
+from pathlib import Path
 
-bottle.TEMPLATE_PATH.insert(0,'C:\\Users\\Uporabnik\\Tijan\\projekt_rac\\Galerija\\src\\bottle\\view')    # TODO add to gitignore config file or change to relative path
-path_to_json = 'C:\\Users\\Uporabnik\\Tijan\\projekt_rac\\Galerija\\src\\model\\'
-picture_path = "C:\\Users\\Uporabnik\\Tijan\\projekt_rac\\Galerija\\static\\images\\"
+bottle.TEMPLATE_PATH.insert(0,'Galerija\\src\\bottle\\view')    # TODO add to gitignore config file or change to relative path
+path_to_json = 'Galerija\\src\\model\\'
+picture_path = "Galerija\\static\\images\\"
 #path_to_pictures = "C:\\Users\\Uporabnik\\Tijan\\projekt_rac\\Galerija\\static\\"
 
 def check_login(username, password):
@@ -85,7 +86,7 @@ bottle.BaseTemplate.defaults['get_url'] = app.get_url
 
 @bottle.route('/static/<filename:path>', name='static')
 def serve_static(filename):
-    return bottle.static_file(filename, root='static')
+    return bottle.static_file(filename, root= "Galerija\\static")
 
 def add_account(username, password):
     with open(f"{path_to_json}data.txt", "r") as json_file:
@@ -134,23 +135,8 @@ def main_page_action():
 @get('/login')
 def login():
     if request.get_cookie('account'):
-        return "You are already logged in:o"
-    return '''
-        <b>Already have an account? Login</b> :
-        <form action="/login" method="post">
-            Username: <input name="username" type="text" />
-            Password: <input name="password" type="password" />
-            <input value="Login" type="submit" />
-        </form>
-
-        <b>First time? Sign in:</b>
-
-        <form action="/login" method="post">
-            New username: <input name="new_username" type="text" />
-            New password: <input name="new_password" type="password" />
-            <input value="Sign in" type="submit" />
-        </form>
-    '''
+        return "You are already logged in :)"
+    return bottle.template("login.tpl", name = request.get_cookie('account'))
 
 @post('/login')
 def do_login():
