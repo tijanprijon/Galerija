@@ -52,6 +52,12 @@ def get_list_of_images(user):
 
 
 # PICTURES MANEGING
+def resize_picture(image_path, basewidth):
+    img = Image.open(image_path)
+    wpercent = (basewidth/float(img.size[0]))
+    hsize = int((float(img.size[1])*float(wpercent)))
+    img = img.resize((basewidth,hsize), Image.ANTIALIAS)
+    img.save(image_path)
 
 def save_picture(user, upload):
     name, ext = os.path.splitext(upload.filename)
@@ -60,6 +66,7 @@ def save_picture(user, upload):
         return 'File extension not allowed.'
     with open(save_path, "wb") as image_file:
         image_file.write(upload.file.read())
+    resize_picture(save_path, 600)
     data = read_json()
     try:
         data[f"{name}_{user}"]
@@ -76,6 +83,7 @@ def save_grayscale(image_name, ext, user):
     gray_scale_image = original_image.convert('1')
     save_path =  os.path.join(picture_path, f"{image_name}_grayscale{ext}")
     gray_scale_image.save(save_path)
+    resize_picture(save_path, 600)
     data = read_json()
     data[f"{image_name}_grayscale"] = {"owner": user, "likes" : 0, "image_name": f"{image_name}_grayscale", "dislikes" : 0, "comments" : [], "date": datetime.now().__str__(), "ext": ext}
     write_json(data)
