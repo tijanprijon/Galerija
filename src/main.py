@@ -1,23 +1,18 @@
 import bottle   # TODO pip install not working, currently entire bottle.py file copied to rep
 import os
-import json
 import sys
 from bottle import get, post, request
 from datetime import datetime
-from PIL import Image, ImageFilter
 from model import *
 
-bottle.TEMPLATE_PATH.insert(0,'Galerija\\src\\bottle\\view')    # TODO add to gitignore config file or change to relative path
-path_to_json = 'Galerija\\src\\model\\'
-picture_path = "Galerija\\static\\images\\"
-
+bottle.TEMPLATE_PATH.insert(0,os.path.join("Galerija", "src", "view"))    # TODO add to gitignore config file or change to relative path
 
 app = bottle.default_app()
 bottle.BaseTemplate.defaults['get_url'] = app.get_url
 
-@bottle.route('/static/<filename:path>', name='static')
+@bottle.route('/database/<filename:path>', name='database')
 def serve_static(filename):
-    return bottle.static_file(filename, root= "Galerija\\static")
+    return bottle.static_file(filename, root= os.path.join("Galerija", "database"))
 
 @get('/')
 def main_page():
@@ -67,7 +62,6 @@ def do_login():
             return f"Username '{new_username}' already exists."
     else:
         return "<p>HA HA HA. Not working<p>" #login unsuccessful
-
 
 @get('/gallery')
 def gallery():

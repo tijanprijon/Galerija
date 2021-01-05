@@ -18,7 +18,7 @@
 </form>
 
 % for image in images:
-% image_name = f"images/{image['image_name']}{image['ext']}"
+% image_name = f"{image['image_name']}{image['ext']}"
 % likes = f'{image["likes"]}' +  " likes"
 % like_name = f'like_{image["image_name"]}'
 % dislike_name = f'dislike_{image["image_name"]}'
@@ -33,7 +33,7 @@
 %end
 %date = image["date"]
 <ul>
-<img src="{{ get_url('static', filename= image_name) }}"/>
+<img src="{{ get_url('database', filename= image_name) }}"/>
 
 <form action="/gallery" method="post">
 {{likes}}   <input name = {{like_name}} value= "Like" type="submit" />
