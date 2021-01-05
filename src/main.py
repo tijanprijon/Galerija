@@ -1,11 +1,11 @@
-import bottle   # TODO pip install not working, currently entire bottle.py file copied to rep
+import bottle
 import os
 import sys
 from bottle import get, post, request
 from datetime import datetime
 from model import *
 
-bottle.TEMPLATE_PATH.insert(0,os.path.join("Galerija", "src", "view"))    # TODO add to gitignore config file or change to relative path
+bottle.TEMPLATE_PATH.insert(0,os.path.join("Galerija", "src", "view"))
 
 app = bottle.default_app()
 bottle.BaseTemplate.defaults['get_url'] = app.get_url
@@ -72,7 +72,7 @@ def gallery():
     return bottle.redirect("/login")
 
 @post('/gallery')
-def gallery_action(): # TODO call functions
+def gallery_action():
     if not request.get_cookie('account'):
         bottle.redirect('/')
     user = request.get_cookie('account')

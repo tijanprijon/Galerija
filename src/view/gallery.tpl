@@ -1,22 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Hello </title>
+<title>Gallery </title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+ rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+
 </head>
 <body>
 
 <h1>Gallery</h1>
+
 <p>Hello, welcome to your gallery :)</p>
 
 <form action="/" method="post">
-    <input name = main_page value="Go to main page" type="submit" />
+    <input name = main_page value="Go to main page" type="submit" class="btn btn-outline-primary"/>
 </form>
 <br>
 <form action="/gallery" method="post" enctype="multipart/form-data">
   Select a file to upload more pictures: <input type="file" name="upload" />
-  <input type="submit" value="Start upload" />
+  <input class="form-control" type="submit" value="Start upload" />
 </form>
-
+<br>
 % for image in images:
 % image_name = f"{image['image_name']}{image['ext']}"
 % likes = f'{image["likes"]}' +  " likes"
@@ -32,14 +41,18 @@
 % dislikes = "1 dislike"
 %end
 %date = image["date"]
-<ul>
-<img src="{{ get_url('database', filename= image_name) }}"/>
 
+
+<ul>
+<div>
+<img src="{{ get_url('database', filename= image_name) }}" class="img-fluid" />
+</div>
+<br>
 <form action="/gallery" method="post">
-{{likes}}   <input name = {{like_name}} value= "Like" type="submit" />
+<b>{{likes}}  </b> <input name = {{like_name}} value= "Like" type="submit" class="btn btn-success btn-sm"/>
 <form action="/gallery" method="post">
-{{dislikes}}   <input name = {{dislike_name}} value= "Disike" type="submit" />
-<br>Uploaded at: {{date}}
+<b>{{dislikes}} </b>  <input name = {{dislike_name}} value= "Disike" type="submit" class="btn btn-danger btn-sm" > />
+<br><i>Uploaded at:</i> {{date}}
 
 <b><br><br>Comments:</b>
 % for comment in image["comments"]:
@@ -48,11 +61,11 @@
 %end
 <br>
 <form action="/gallery" method="post">
-    Comment: <input name="{{comment_name}}" type="text" />
-    <input value="Add comment" type="submit" />
+    Comment: <input name="{{comment_name}}" type="text" placeholder= "I like this picture." aria-label="default input example"/>
+    <input value="Add comment" type="submit" class="btn btn-outline-primary btn-sm"/>
 </form>
 
-<br>Filter this image &amp add it to your gallery:
+<br><b>Filter this image &amp add it to your gallery:</b>
 
 <form action="/gallery" method="post">
   <label for="filter">Choose a filter:</label>
@@ -67,10 +80,11 @@
   <input type="submit">
 
 </form>
-
 </ul>
 %end
 
 </form>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+ integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script
 </body>
 </html>

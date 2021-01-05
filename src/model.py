@@ -4,7 +4,7 @@ import os
 import json
 
 path_to_json = os.path.join("Galerija", "database", "data.json")
-picture_path = os.path.join("Galerija", "static")
+picture_path = os.path.join("Galerija", "database")
 
 def read_json():
     with open(path_to_json, "r") as json_file:
@@ -53,7 +53,7 @@ def get_list_of_images(user):
 
 # PICTURES MANEGING
 
-def save_picture(user, upload): #TODO title
+def save_picture(user, upload):
     name, ext = os.path.splitext(upload.filename)
     save_path =  os.path.join(picture_path, f"{name}_{user}{ext}")
     if ext not in ('.png','.jpg','.jpeg'):
