@@ -3,7 +3,6 @@ from PIL import Image, ImageFilter
 import os
 import json
 
-
 path_to_json = os.path.join("Galerija", "database", "data.json")
 picture_path = os.path.join("Galerija", "static")
 
@@ -15,6 +14,8 @@ def read_json():
 def write_json(data):
     with  open(path_to_json, "w") as outfile:
         json.dump(data, outfile, indent=4)
+
+# USERS MANEGING
 
 def check_login(username, password):
     """Return True if login infos are valid"""
@@ -32,6 +33,26 @@ def username_available(name):
             return False
     return True
 
+def add_account(username, password):
+    data = read_json()
+    data_to_add = {"Username": username, "Password" : password}
+    data["users"].append(data_to_add)
+    write_json(data)
+
+def get_list_of_images(user):
+    list_of_images = list()
+    data = read_json()
+    for element in data:
+        if type(data[element]) == list: # element in json is not picture but list of users
+            continue
+        if data[element]["owner"] == user:
+            list_of_images.append(data[element])
+    return list_of_images
+
+
+
+# PICTURES MANEGING
+
 def save_picture(user, upload): #TODO title
     name, ext = os.path.splitext(upload.filename)
     save_path =  os.path.join(picture_path, f"{name}_{user}{ext}")
@@ -48,16 +69,6 @@ def save_picture(user, upload): #TODO title
         pass
     data[f"{name}_{user}"] = {"owner": user, "likes" : 0, "image_name": f"{name}_{user}", "dislikes" : 0, "comments" : [], "date": datetime.now().__str__(), "ext": ext}
     write_json(data)
-
-def get_list_of_images(user):
-    list_of_images = list()
-    data = read_json()
-    for element in data:
-        if type(data[element]) == list: # element in json is not picture but list of users
-            continue
-        if data[element]["owner"] == user:
-            list_of_images.append(data[element])
-    return list_of_images
 
 def save_grayscale(image_name, ext, user):
     image_path = os.path.join(picture_path, f"{image_name}{ext}")
@@ -78,12 +89,6 @@ def save_diff_filters(image_name, ext, filter_name, user):
     filtered_image.save(save_path)
     data = read_json()
     data[f"{image_name}_{filter_name}"] = {"owner": user, "likes" : 0, "image_name": f"{image_name}_{filter_name}", "dislikes" : 0, "comments" : [], "date": datetime.now().__str__(), "ext": ext}
-    write_json(data)
-
-def add_account(username, password):
-    data = read_json()
-    data_to_add = {"Username": username, "Password" : password}
-    data["users"].append(data_to_add)
     write_json(data)
 
 def like_picture(image_name):
