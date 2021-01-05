@@ -12,6 +12,7 @@
 
 
 <body>
+<div class = "container">
 <h1>Login</h1>
 <br>
 <p><b>Already have an account? Login:</b></p>
@@ -27,5 +28,6 @@
     New password: <input name="new_password" type="password" placeholder= "Password123" class="btn btn-outline-primary btn-sm"/>
     <input value="Sign in" type="submit"class="btn btn-outline-success btn-sm"  />
 </form>
+</div>
 </body>
 </html>

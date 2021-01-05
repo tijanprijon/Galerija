@@ -10,7 +10,7 @@
 <meta charset="utf-8">
 </head>
 <body>
-
+<div class = "container">
 <h1>MAIN PAGE</h1>
 <br>
 <p>Hello <b>{{name}}</b> :) How are you?</p>
@@ -22,6 +22,6 @@
     <input name = gallery value="View gallery" type="submit" class="btn btn-outline-primary btn-lg" />
 </form>
 
-</form>
+</div>
 </body>
 </html>

@@ -35,20 +35,42 @@ def username_available(name):
 
 def add_account(username, password):
     data = read_json()
-    data_to_add = {"Username": username, "Password" : password}
+    data_to_add = {"Username": username, "Password" : password, "Sorf_preference" : [None, True]}
     data["users"].append(data_to_add)
     write_json(data)
 
-def get_list_of_images(user):
-    list_of_images = list()
+def get_list_of_images(user):    # Possible sorting options: likes, dislikes, date, comments (number of)
     data = read_json()
+    for element in data["users"]:
+        if element["Username"] == user:
+            order_by, in_reverse = element["Sorf_preference"]
+            if in_reverse == "reverse":
+                in_reverse = True
+            else:
+                in_reverse = False
+    
+    def sort_by(elem):
+        if order_by == "comments":
+            return len(elem["comments"])
+        else:
+            return elem[order_by]
+
+    list_of_images = list()
     for element in data:
         if type(data[element]) == list: # element in json is not picture but list of users
             continue
         if data[element]["owner"] == user:
             list_of_images.append(data[element])
+    if order_by:
+        list_of_images.sort(key = sort_by, reverse = in_reverse)
     return list_of_images
 
+def add_user_sort_preference(user, order_by, in_reverse):
+    data = read_json()
+    for element in data["users"]:
+        if element["Username"] == user:
+            element["Sorf_preference"] = [order_by, in_reverse]
+    write_json(data)
 
 
 # PICTURES MANEGING
@@ -66,7 +88,7 @@ def save_picture(user, upload):
         return 'File extension not allowed.'
     with open(save_path, "wb") as image_file:
         image_file.write(upload.file.read())
-    resize_picture(save_path, 600)
+    resize_picture(save_path, 800)
     data = read_json()
     try:
         data[f"{name}_{user}"]
@@ -83,7 +105,7 @@ def save_grayscale(image_name, ext, user):
     gray_scale_image = original_image.convert('1')
     save_path =  os.path.join(picture_path, f"{image_name}_grayscale{ext}")
     gray_scale_image.save(save_path)
-    resize_picture(save_path, 600)
+    resize_picture(save_path, 800)
     data = read_json()
     data[f"{image_name}_grayscale"] = {"owner": user, "likes" : 0, "image_name": f"{image_name}_grayscale", "dislikes" : 0, "comments" : [], "date": datetime.now().__str__(), "ext": ext}
     write_json(data)

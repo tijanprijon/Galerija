@@ -12,7 +12,7 @@
 
 </head>
 <body>
-
+<div class = "container">
 <h1>Gallery</h1>
 
 <p>Hello, welcome to your gallery :)</p>
@@ -24,6 +24,22 @@
 <form action="/gallery" method="post" enctype="multipart/form-data">
   Select a file to upload more pictures: <input type="file" name="upload" />
   <input class="form-control" type="submit" value="Start upload" />
+</form>
+<br>
+
+<form action="/gallery" method="post">
+  <label for="sort_gallery"><b>View pictures in this gallery sorted by:</b></label>
+  <select id= sort_gallery name= sort_gallery>
+    <option value="likes">Likes</option>
+    <option value="dislikes">Dislikes</option>
+    <option value="date">Uploade date</option>
+    <option value="comments">Number of comments</option>
+  </select>
+    <select id= sort_gallery_reverse name= sort_gallery_reverse>
+    <option value="reverse">Descending</option>
+    <option value="nonreverse">Ascending</option>
+  </select>
+  <input type="submit" class="btn btn-outline-primary btn-sm">
 </form>
 <br>
 % for image in images:
@@ -51,7 +67,7 @@
 <form action="/gallery" method="post">
 <b>{{likes}}  </b> <input name = {{like_name}} value= "Like" type="submit" class="btn btn-success btn-sm"/>
 <form action="/gallery" method="post">
-<b>{{dislikes}} </b>  <input name = {{dislike_name}} value= "Disike" type="submit" class="btn btn-danger btn-sm" > />
+<b>{{dislikes}} </b>  <input name = {{dislike_name}} value= "Disike" type="submit" class="btn btn-danger btn-sm" > 
 <br><i>Uploaded at:</i> {{date}}
 
 <b><br><br>Comments:</b>
@@ -77,13 +93,14 @@
     <option value="CONTOUR">Contour</option>
     <option value="GRAYSCALE">Grayscale</option>
   </select>
-  <input type="submit">
-
+  <input type="submit" class="btn btn-outline-primary btn-sm">
 </form>
 </ul>
 %end
-
 </form>
+
+<br>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
  integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script
 </body>

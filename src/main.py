@@ -74,7 +74,7 @@ def gallery():
 @post('/gallery')
 def gallery_action():
     if not request.get_cookie('account'):
-        bottle.redirect('/')
+        bottle.redirect('/login')
     user = request.get_cookie('account')
     if request.files.get('upload'):
         upload = request.files.get('upload')
@@ -82,6 +82,7 @@ def gallery_action():
         bottle.redirect('/gallery')
     if request.forms.get("main_page"):
         bottle.redirect("/")
+
     for image in get_list_of_images(user):
         like_name = f"like_{image['image_name']}"
         dislike_name = f"dislike_{image['image_name']}"
@@ -103,5 +104,7 @@ def gallery_action():
             else:
                 save_diff_filters(image['image_name'], image['ext'], request.forms.get(filter_name), user)
                 bottle.redirect('/gallery')
-
+        if request.forms.get("sort_gallery"):
+            add_user_sort_preference(user, request.forms.get("sort_gallery"), request.forms.get("sort_gallery_reverse"))
+            bottle.redirect('/gallery')
 bottle.run(host='localhost', port=8080, debug=True, reloader = True)
