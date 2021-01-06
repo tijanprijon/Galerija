@@ -53,13 +53,13 @@ def do_login():
     elif request.forms.get("new_username") and request.forms.get("new_password"):   # not None
         new_username = request.forms.get("new_username")
         password = request.forms.get("new_password")
-        if username_available(new_username):
+        if username_available(new_username, password):
             bottle.response.set_cookie("account", new_username)
             add_account(new_username, password)
             bottle.redirect('/')
             print("Sign in successful")
         else:
-            return f"Username '{new_username}' already exists."
+            return f"Username '{new_username}' or password not available."
     else:
         return "<p>HA HA HA. Not working<p>" #login unsuccessful
 
@@ -107,4 +107,6 @@ def gallery_action():
         if request.forms.get("sort_gallery"):
             add_user_sort_preference(user, request.forms.get("sort_gallery"), request.forms.get("sort_gallery_reverse"))
             bottle.redirect('/gallery')
+
+
 bottle.run(host='localhost', port=8080, debug=True, reloader = True)

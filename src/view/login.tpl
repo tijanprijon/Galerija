@@ -28,6 +28,8 @@
     New password: <input name="new_password" type="password" placeholder= "Password123" class="btn btn-outline-primary btn-sm"/>
     <input value="Sign in" type="submit"class="btn btn-outline-success btn-sm"  />
 </form>
+<br>
+<b><i>Username and password can contain only numbers, dashes and letters from english alphabet!</i></b>
 </div>
 </body>
 </html>

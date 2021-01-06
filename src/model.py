@@ -2,7 +2,7 @@ from datetime import datetime
 from PIL import Image, ImageFilter
 import os
 import json
-
+import re
 path_to_json = os.path.join("Galerija", "database", "data.json")
 picture_path = os.path.join("Galerija", "database")
 
@@ -19,14 +19,17 @@ def write_json(data):
 
 def check_login(username, password):
     """Return True if login infos are valid"""
-    data = read_json()
-    for user in data["users"]:
-        if user["Username"] == username and user["Password"] == password:
-            return True
+    if re.match("^[A-Za-z0-9_-]*$", username) and re.match("^[A-Za-z0-9_-]*$", password):
+        data = read_json()
+        for user in data["users"]:
+            if user["Username"] == username and user["Password"] == password:
+                return True
     return False
 
-def username_available(name):
+def username_available(name, password):
     """return True if available, otherwise False"""
+    if not(re.match("^[A-Za-z0-9_-]*$", name) and re.match("^[A-Za-z0-9_-]*$", password)):
+        return False
     data = read_json()
     for user in data["users"]:
         if user["Username"] == name:
