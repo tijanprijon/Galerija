@@ -5,14 +5,14 @@ from bottle import get, post, request
 from datetime import datetime
 from model import *
 
-bottle.TEMPLATE_PATH.insert(0,os.path.join("Galerija", "src", "view"))
+bottle.TEMPLATE_PATH.insert(0, os.path.join(os.getcwd(), "view"))
 
 app = bottle.default_app()
 bottle.BaseTemplate.defaults['get_url'] = app.get_url
 
 @bottle.route('/database/<filename:path>', name='database')
 def serve_static(filename):
-    return bottle.static_file(filename, root= os.path.join("Galerija", "database"))
+    return bottle.static_file(filename, root= os.path.join(os.getcwd(),'..', "database"))
 
 @get('/')
 def main_page():

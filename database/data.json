@@ -1,4 +1,21 @@
 {
     "users": [
-    ]
+        {
+            "Username": "sdff",
+            "Password": "adssda",
+            "Sorf_preference": [
+                null,
+                true
+            ]
+        }
+    ],
+    "akres1_sdff": {
+        "owner": "sdff",
+        "likes": 1,
+        "image_name": "akres1_sdff",
+        "dislikes": 0,
+        "comments": [],
+        "date": "2021-01-12 21:53:29.766234",
+        "ext": ".png"
+    }
 }

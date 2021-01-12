@@ -3,8 +3,8 @@ from PIL import Image, ImageFilter
 import os
 import json
 import re
-path_to_json = os.path.join("Galerija", "database", "data.json")
-picture_path = os.path.join("Galerija", "database")
+path_to_json = os.path.join(os.getcwd(),'..', "database", "data.json")
+picture_path = os.path.join(os.getcwd(),'..', "database")
 
 def read_json():
     with open(path_to_json, "r") as json_file:
