@@ -46,8 +46,7 @@ def do_login():
             print("Your login information was correct.")
             bottle.redirect('/')
         else:
-            return("Your username or password is incorrect.")
-        return "<p>HA HA HA<p>" #login unsuccessful
+            return bottle.template("failed_login.tpl", msg = "Your username or password is incorrect.")
 
     #sign in
     elif request.forms.get("new_username") and request.forms.get("new_password"):   # not None
@@ -57,12 +56,10 @@ def do_login():
             bottle.response.set_cookie("account", new_username)
             add_account(new_username, password)
             bottle.redirect('/')
-            print("Sign in successful")
         else:
-            return f"Username '{new_username}' or password not available."
-    else:
-        return "<p>HA HA HA. Not working<p>" #login unsuccessful
-
+            return bottle.template("failed_login.tpl", msg = f"Username or password not available.")
+        if request.forms.get("login"):
+            bottle.redirect("/login")
 @get('/gallery')
 def gallery():
     if request.get_cookie('account'):
@@ -83,11 +80,34 @@ def gallery_action():
     if request.forms.get("main_page"):
         bottle.redirect("/")
 
+    if request.forms.get("sort_gallery"):
+        add_user_sort_preference(user, request.forms.get("sort_gallery"), request.forms.get("sort_gallery_reverse"))
+        bottle.redirect('/gallery')
+    if request.forms.get("show_only"):
+        user_set_view(user, request.forms.get("show_only"))
+        bottle.redirect('/gallery')
+
     for image in get_list_of_images(user):
         like_name = f"like_{image['image_name']}"
         dislike_name = f"dislike_{image['image_name']}"
         comment_name = f"comment_{image['image_name']}"
         filter_name = f"filter_{image['image_name']}"
+        nature_label = f"nature_label_{image['image_name']}"
+        sport_label = f"sport_label_{image['image_name']}"
+        fun_label = f"fun_label_{image['image_name']}"
+        sightseeing_label = f"sightseeing_label_{image['image_name']}"
+        selfie_label = f"selfie_label_{image['image_name']}"
+        family_label = f"family_label_{image['image_name']}"
+        friends_label = f"friends_label_{image['image_name']}"
+        filter_label = f"filter_label_{image['image_name']}"
+        labels = [nature_label, sport_label, fun_label, sightseeing_label, selfie_label, family_label, friends_label, filter_label]
+        for label in labels:
+            if request.forms.get(label):
+                add_label(image['image_name'], label.split("_")[0])
+                bottle.redirect('/gallery')
+            if request.forms.get(f"{label}_del"):
+                remove_label(image['image_name'], label.split("_")[0])
+                bottle.redirect('/gallery')
         if request.forms.get(like_name):
             like_picture(f"{image['image_name']}")
             bottle.redirect('/gallery')
@@ -104,9 +124,5 @@ def gallery_action():
             else:
                 save_diff_filters(image['image_name'], image['ext'], request.forms.get(filter_name), user)
                 bottle.redirect('/gallery')
-        if request.forms.get("sort_gallery"):
-            add_user_sort_preference(user, request.forms.get("sort_gallery"), request.forms.get("sort_gallery_reverse"))
-            bottle.redirect('/gallery')
-
 
 bottle.run(host='localhost', port=8080, debug=True, reloader = True)

@@ -17,36 +17,42 @@ def write_json(data):
 
 # USERS MANEGING
 
+def check_grammar(word):
+    if re.match("^[A-Za-z0-9_-]*$", word):
+        return True
+    return False
+
 def check_login(username, password):
     """Return True if login infos are valid"""
-    if re.match("^[A-Za-z0-9_-]*$", username) and re.match("^[A-Za-z0-9_-]*$", password):
+    if check_grammar(username) and check_grammar(password):
         data = read_json()
         for user in data["users"]:
-            if user["Username"] == username and user["Password"] == password:
+            if user["username"] == username and user["password"] == password:
                 return True
     return False
 
 def username_available(name, password):
     """return True if available, otherwise False"""
-    if not(re.match("^[A-Za-z0-9_-]*$", name) and re.match("^[A-Za-z0-9_-]*$", password)):
+    if not( check_grammar(name) and check_grammar(password)):
         return False
     data = read_json()
     for user in data["users"]:
-        if user["Username"] == name:
+        if user["username"] == name:
             return False
     return True
 
 def add_account(username, password):
     data = read_json()
-    data_to_add = {"Username": username, "Password" : password, "Sorf_preference" : [None, True]}
+    data_to_add = {"username": username, "password" : password, "sort_preference" : [None, True], "show_pictures" : "show_all"}
     data["users"].append(data_to_add)
     write_json(data)
 
 def get_list_of_images(user):    # Possible sorting options: likes, dislikes, date, comments (number of)
     data = read_json()
     for element in data["users"]:
-        if element["Username"] == user:
-            order_by, in_reverse = element["Sorf_preference"]
+        if element["username"] == user:
+            show_only = element["show_pictures"]
+            order_by, in_reverse = element["sort_preference"]
             if in_reverse == "reverse":
                 in_reverse = True
             else:
@@ -62,7 +68,7 @@ def get_list_of_images(user):    # Possible sorting options: likes, dislikes, da
     for element in data:
         if type(data[element]) == list: # element in json is not picture but list of users
             continue
-        if data[element]["owner"] == user:
+        if data[element]["owner"] == user and (show_only in data[element]["labels"] or show_only == "show_all"):
             list_of_images.append(data[element])
     if order_by:
         list_of_images.sort(key = sort_by, reverse = in_reverse)
@@ -71,10 +77,16 @@ def get_list_of_images(user):    # Possible sorting options: likes, dislikes, da
 def add_user_sort_preference(user, order_by, in_reverse):
     data = read_json()
     for element in data["users"]:
-        if element["Username"] == user:
-            element["Sorf_preference"] = [order_by, in_reverse]
+        if element["username"] == user:
+            element["sort_preference"] = [order_by, in_reverse]
     write_json(data)
 
+def user_set_view(user, label):
+    data = read_json()
+    for element in data["users"]:
+        if element["username"] == user:
+            element["show_pictures"] = label
+    write_json(data)
 
 # PICTURES MANEGING
 def resize_picture(image_path, basewidth):
@@ -93,13 +105,9 @@ def save_picture(user, upload):
         image_file.write(upload.file.read())
     resize_picture(save_path, 800)
     data = read_json()
-    try:
-        data[f"{name}_{user}"]
-        print("Picture already exists.")
+    if data.get(f"{name}_{user}", None):    # If picture already exists dont save it.
         return None
-    except Exception:
-        pass
-    data[f"{name}_{user}"] = {"owner": user, "likes" : 0, "image_name": f"{name}_{user}", "dislikes" : 0, "comments" : [], "date": datetime.now().__str__(), "ext": ext}
+    data[f"{name}_{user}"] = {"owner": user, "likes" : 0, "image_name": f"{name}_{user}", "dislikes" : 0, "comments" : [], "date": datetime.now().__str__(), "ext": ext, "labels" : []}
     write_json(data)
 
 def save_grayscale(image_name, ext, user):
@@ -110,7 +118,7 @@ def save_grayscale(image_name, ext, user):
     gray_scale_image.save(save_path)
     resize_picture(save_path, 800)
     data = read_json()
-    data[f"{image_name}_grayscale"] = {"owner": user, "likes" : 0, "image_name": f"{image_name}_grayscale", "dislikes" : 0, "comments" : [], "date": datetime.now().__str__(), "ext": ext}
+    data[f"{image_name}_grayscale"] = {"owner": user, "likes" : 0, "image_name": f"{image_name}_grayscale", "dislikes" : 0, "comments" : [], "date": datetime.now().__str__(), "ext": ext, "labels" : ["filter"]}
     write_json(data)
 
 def save_diff_filters(image_name, ext, filter_name, user):
@@ -121,7 +129,7 @@ def save_diff_filters(image_name, ext, filter_name, user):
     save_path =  os.path.join(picture_path, f"{image_name}_{filter_name}{ext}")
     filtered_image.save(save_path)
     data = read_json()
-    data[f"{image_name}_{filter_name}"] = {"owner": user, "likes" : 0, "image_name": f"{image_name}_{filter_name}", "dislikes" : 0, "comments" : [], "date": datetime.now().__str__(), "ext": ext}
+    data[f"{image_name}_{filter_name}"] = {"owner": user, "likes" : 0, "image_name": f"{image_name}_{filter_name}", "dislikes" : 0, "comments" : [], "date": datetime.now().__str__(), "ext": ext, "labels" : ["filter"]}
     write_json(data)
 
 def like_picture(image_name):
@@ -137,4 +145,14 @@ def dislike_picture(image_name):
 def add_comment(image_name, comment):
     data = read_json()
     data[image_name]["comments"].append(comment)
+    write_json(data)
+
+def add_label(image_name, label):
+    data = read_json()
+    data[image_name]["labels"].append(label)
+    write_json(data)
+
+def remove_label(image_name, label):
+    data = read_json()
+    data[image_name]["labels"].remove(label)
     write_json(data)
