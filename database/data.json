@@ -1,4 +1,41 @@
 {
     "users": [
-    ]
+        {
+            "username": "tijan",
+            "password": "prijon",
+            "sort_preference": [
+                null,
+                true
+            ],
+            "show_pictures": "show_all"
+        }
+    ],
+    "WIN_20200810_18_26_09_Pro_tijan": {
+        "owner": "tijan",
+        "likes": 1,
+        "image_name": "WIN_20200810_18_26_09_Pro_tijan",
+        "dislikes": 1,
+        "comments": [],
+        "date": "2021-02-21 14:11:20.632276",
+        "ext": ".jpg",
+        "labels": [
+            "sport",
+            "friends"
+        ]
+    },
+    "WIN_20200810_18_26_09_Pro_tijan_EDGE_ENHANCE": {
+        "owner": "tijan",
+        "likes": 0,
+        "image_name": "WIN_20200810_18_26_09_Pro_tijan_EDGE_ENHANCE",
+        "dislikes": 0,
+        "comments": [
+            "Slika mi je vsec"
+        ],
+        "date": "2021-02-21 14:11:34.787536",
+        "ext": ".jpg",
+        "labels": [
+            "filter",
+            "sightseeing"
+        ]
+    }
 }
