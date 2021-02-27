@@ -6,11 +6,11 @@ To start server run main.py from src. Move to src folder and write `python main.
 
 
 # REQUIREMENTS:
-Python3 installed on computer
-"pillow" library shoul be installed: `pip install pillow`
+* Python3 installed on computer
+* "pillow" library shoul be installed: `pip install pillow`
 
 
 # Sources:
 Project is entirely my personal work, however some examples have been taken (and modified not just copied) from bottle documentation (how to set cookies for example).
-https://stackoverflow.com/
-https://bottlepy.org/docs/dev/tutorial.html
+* https://stackoverflow.com/
+* https://bottlepy.org/docs/dev/tutorial.html
